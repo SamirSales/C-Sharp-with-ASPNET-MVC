@@ -6,10 +6,11 @@
 
 <table>
     <tr>
-        <td><b></b>ID</b></td>
-        <td><b>Name</b></td>
-        <td><b>Nick</b></td>
-        <td><b>Age</b></td>
+        <td style="min-width:80px;"><b>ID</b></td>
+        <td style="min-width:80px;"><b>Name</b></td>
+        <td style="min-width:80px;"><b>Nick</b></td>
+        <td style="min-width:80px;"><b>Age</b></td>
+        <td style="min-width:80px;"><b></b></td>
     </tr>
 
     @foreach (WebApplication1.Models.Person p in @ViewBag.list)
@@ -19,16 +20,27 @@
             <td>@p.Name</td>
             <td>@p.Nick</td>
             <td>@p.Age</td>
+            <td>
+                <form action="Home/Delete/" method="post">
+                    <fieldset>
+                        <div>
+                            <input type="hidden" name="id" value="@p.Id" />
+                            <input type="submit" value="Delete" />
+                        </div>
+                    </fieldset>
+                </form>
+            </td>
         </tr>
     }
 </table>
 
-<form action="Home/Create" method="post">
+<br />
+<form action="Home/Create/" method="post">
     <fieldset>
         <div>
-            <input type="text" id="name" placeholder="Name" />
-            <input type="text" id="nick" placeholder="Nick" />
-            <input type="text" id="age" placeholder="Age" />
+            <input type="text" name="name" placeholder="First Name" />
+            <input type="text" name="nick" placeholder="Nickname" />
+            <input type="number" name="age" placeholder="Age" />
             <input type="submit" value="Add" />
         </div>
     </fieldset>

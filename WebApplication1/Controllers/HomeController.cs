@@ -10,15 +10,15 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            var pessoa = new Person()
-            {
-                Id = 1,
-                Name = "Maria",
-                Nick = "Mary",
-                Age = 20
-            };
+            //var pessoa = new Person()
+            //{
+            //    Id = 1,
+            //    Name = "Maria",
+            //    Nick = "Mary",
+            //    Age = 20
+            //};
 
-            lista.Add(pessoa);
+            //lista.Add(pessoa);
 
             ViewBag.list = lista;
 
@@ -26,17 +26,44 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public void Create(string name, string nick, int age)
+        public ActionResult Create(string name, string nick, int age)
         {
             var pessoa = new Person()
             {
-                Id = 8,
+                Id = GetSomeId(),
                 Name = name,
                 Nick = nick,
                 Age = age
             };
 
             lista.Add(pessoa);
+
+            return RedirectToAction("Index");
+        }
+
+        private int GetSomeId()
+        {
+            for(int i = 0; i < lista.Count; i++)
+            {
+                int newId = i + 1;
+                if (!IdExist(newId))
+                {
+                    return newId;
+                }
+            }
+            return lista.Count+1;
+        }
+
+        private bool IdExist(int id)
+        {
+            foreach(Person p in lista)
+            {
+                if(id == p.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         [HttpPost]
@@ -56,17 +83,19 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public void Delete(int personId)
+        public ActionResult Delete(int id)
         {    
             for(int i=0; i<lista.Count; i++)
             {
                 Person p = lista[i];
-                if(p.Id == personId)
+                if(p.Id == id)
                 {
                     lista.Remove(p);
                     break;
                 }
             }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult About()
