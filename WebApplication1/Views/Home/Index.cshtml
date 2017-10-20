@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>Lista de pessoas</h3>
+
+<table>
+    <tr>
+        <td><b></b>ID</b></td>
+        <td><b>Name</b></td>
+        <td><b>Nick</b></td>
+        <td><b>Age</b></td>
+    </tr>
+
+    @foreach (WebApplication1.Models.Person p in @ViewBag.list)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.Name</td>
+            <td>@p.Nick</td>
+            <td>@p.Age</td>
+        </tr>
+    }
+</table>
+
+<form action="Home/Create" method="post">
+    <fieldset>
+        <div>
+            <input type="text" id="name" placeholder="Name" />
+            <input type="text" id="nick" placeholder="Nick" />
+            <input type="text" id="age" placeholder="Age" />
+            <input type="submit" value="Add" />
+        </div>
+    </fieldset>
+</form>
